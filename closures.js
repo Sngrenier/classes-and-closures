@@ -1,6 +1,6 @@
 /* 
-  Once you complete a problem, refresh ./closures.html in your browser and check to see if the problem's test(s) are passing.
-  Passed tests will be indicated by a green circle.
+  Once you complete a problem, refresh ./closures.html in your browser and check to see if the 
+  problem's test(s) are passing. Passed tests will be indicated by a green circle.
   Failed tests will be indicated by a red X.
 
   You can refresh the page at any time to re-run all the tests.
@@ -23,13 +23,14 @@ function outer() {
 */
   
 // Code Here
+const inner = outer()
 
 
 
 //Once you do that, invoke inner.
 
 //Code Here
-
+inner()
 
 
 ////////// PROBLEM 2 //////////
@@ -52,6 +53,8 @@ function callFriend(name) {
 */
 
 //Code Here
+const callJake = callFriend('Jake', '435-555-9248')
+// callJake('435-555-9248')
 
 
 
@@ -62,15 +65,22 @@ function callFriend(name) {
 */
 
 //Code Here
+function makeCounter(){
+  let count = 0
+
+  return function(){
+    return count += 1
+  }
+}
 
 
 
 //Uncomment this once you make your function
-//   var count = makeCounter();
-//   count(); // 1
-//   count(); // 2
-//   count(); // 3
-//   count(); // 4
+  var count = makeCounter();
+  count(); // 1
+  count(); // 2
+  count(); // 3
+  count(); // 4
 
 
 
@@ -78,42 +88,52 @@ function callFriend(name) {
 
 /*
   Inside the function called counterFactory return two functions that implement up/down counter.
-  The first function is called inc, this function is responsible for incrementing the value once and returning the updated value.
-  The second function is called dec, this function is responsible for decrementing the value by one and returning the updated value.
+  The first function is called inc, this function is responsible for incrementing the value once and 
+  returning the updated value.
+  The second function is called dec, this function is responsible for decrementing the value by one and 
+  returning the updated value.
   You will need to use the module pattern to achieve this.
   Information on the module pattern available here: 
   http://stackoverflow.com/questions/17776940/javascript-module-pattern-with-example?answertab=votes#tab-top
 */
 
 function counterFactory(value) {
-  // Code here.
-
-  return {
-
-  };
-}
-
+   return {
+     inc: function(){
+       return ++ value
+     },
+       dec: function(){
+         return --value
+         }
+        }
+      }
+    
 counter = counterFactory(10);
-// counter.inc() // 11
-// counter.inc() // 12
-// counter.inc() // 13
-// counter.dec() // 12
+counter.inc() // 11
+counter.inc() // 12
+counter.inc() // 13
+counter.dec() // 12
 
 
 
 ////////// PROBLEM 5 //////////
 
 /*
-  Inside the motivation function create another function called message that will return the welcome text with the firstname and lastname.
+  Inside the motivation function create another function called message that will return the welcome text 
+  with the firstname and lastname.
   The final message should say "You're doing awesome, keep it up firstname lastname." 
-  (Hint: don't forget to have a space between the firstname and lastname and a period at the end of the sentence.)
+  (Hint: don't forget to have a space between the firstname and lastname and a period at the 
+  end of the sentence.)
 */
 
 function motivation( firstname, lastname ) {
   var welcomeText = "You're doing awesome, keep it up";
 
-  // code message function here.
+  function message(){
+    return `${welcomeText} ${firstname} ${lastname}.`
+  }
 
+return message
   //Uncommment this to return the value of your message function
   //return message;
 }
@@ -125,7 +145,8 @@ var greeting = motivation('Billy', 'Bob'); // 'You're doing awesome keep it up B
 ////////// PROBLEM 6 //////////
 
 /*
-  Inside the module's return object create a publicMethod function that invokes privateMethod (return the result).
+  Inside the module's return object create a publicMethod function that invokes privateMethod 
+  (return the result).
   Invoke this by calling module.publicMethod(); outside the module scope
 */
 
@@ -143,7 +164,9 @@ var module = (function() {
   // Anything that is being returned is made public and can be invoked from
   // outside our lexical scope
   return {
-    // Code here.
+    publicMethod: function(){
+      return privateMethod()
+    }
   };
 })();
 
@@ -162,9 +185,15 @@ function secretNumber() {
   var secret = 143;
 
   return {
-    // Code here
+    addToSecret: function(num){
+      return secret += num
+    },
+    takeAwayFromSecret: function(num){
+      return secret -= num
+    }
+  }
+  
   };
-}
 
 
 
@@ -180,7 +209,8 @@ function secretNumber() {
     4 seconds after call - log 4
     5 seconds after call - log 5
 
-  However, because each call to console.log occurs after the loop has finished, the value of i has changed before the console.log executes.
+  However, because each call to console.log occurs after the loop has finished, the value 
+  of i has changed before the console.log executes.
   We'll need to use a closure to preserve a reference to i at the time of execution.
   
   Fix the code below to log the desired output.
@@ -188,9 +218,12 @@ function secretNumber() {
 
 function timeOutCounter() {
   for (var i = 0; i <= 5; i++) {
+    function counter(ind){
     setTimeout(function() {
-      console.log(i);
-    }, i * 1000);
-  }
+      console.log(ind);
+    }, ind * 1000);
+  } 
+  counter(i)
+}
 }
 timeOutCounter();
